@@ -12,4 +12,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BLL.RidingClubMS\RidingClubMS.BLL.csproj" />
+    <ProjectReference Include="..\DAL.RidingClubMS\RidingClubMS.DAL.csproj" />
+  </ItemGroup>
+
 </Project>

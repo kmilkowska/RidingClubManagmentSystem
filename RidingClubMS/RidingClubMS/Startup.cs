@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using RidingClubMS.DAL.Models;
 
 namespace RidingClubMS
 {
@@ -22,6 +24,7 @@ namespace RidingClubMS
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddDbContext<RidingClubMS_DB>(options => options.UseSqlServer(@"Data Source =DESKTOP-6CJLHJ2\SQL_SERVER; Initial Catalog =RidingClubMSDB; Integrated Security = True; Connect Timeout = 30;"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
