@@ -27,7 +27,8 @@ namespace RidingClubMS.DAL.Models
         public string HorseBreeder { get; set; }
         [Required]
         public string HorseDescription { get; set; }
-        
-        /*imageurl*/
+        [Required]
+        public string ImgUrl { get; set; }
+       
     }
 }
