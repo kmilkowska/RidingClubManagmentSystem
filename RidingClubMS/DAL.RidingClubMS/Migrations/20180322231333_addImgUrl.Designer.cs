@@ -11,9 +11,10 @@ using System;
 namespace RidingClubMS.DAL.Migrations
 {
     [DbContext(typeof(RidingClubMS_DB))]
-    partial class RidingClubMS_DBModelSnapshot : ModelSnapshot
+    [Migration("20180322231333_addImgUrl")]
+    partial class addImgUrl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
