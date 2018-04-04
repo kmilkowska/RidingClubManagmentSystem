@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RidingClubMS.ViewModels;
+using RidingClubMS.BLL.Entities;
 
 namespace RidingClubMS.DAL.EF
 {
@@ -16,9 +17,10 @@ namespace RidingClubMS.DAL.EF
         // Table properties e.g
         // public virtual DbSet<Entity> TableName { get; set; }
 
-       // public virtual DbSet<Horses> Horses { get; set; }
-       // public virtual DbSet<Users> UsersR { get; set; }
-      //  public virtual DbSet<Rides> Rides { get; set; }
+        public virtual DbSet<Horse> Horses { get; set; }
+        public virtual DbSet<Ride> Rides { get; set; }
+        public virtual DbSet<UserRide> UserRides { get; set; }
+
 
 
         public ApplicationDbContext(ConnectionStringDto connectionStringDto)
@@ -35,6 +37,18 @@ namespace RidingClubMS.DAL.EF
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<UserRide>().HasKey(ur => new { ur.RideId, ur.UserId });
+
+
+            modelBuilder.Entity<UserRide>()
+               .HasOne(bc => bc.Ride)
+               .WithMany(b => b.Users)
+               .HasForeignKey(bc => bc.RideId);
+
+            modelBuilder.Entity<UserRide>()
+               .HasOne(bc => bc.User)
+               .WithMany(b => b.UserRides)
+               .HasForeignKey(bc => bc.UserId);
             // Fluent API commands
         }
     }
