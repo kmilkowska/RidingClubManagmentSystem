@@ -12,9 +12,10 @@ using System;
 namespace RidingClubMS.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext<User, Role, int>))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180404085040_UserUpdate")]
+    partial class UserUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,28 +103,6 @@ namespace RidingClubMS.DAL.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("RidingClubMS.BLL.Entities.Ride", b =>
-                {
-                    b.Property<int>("RideId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AdvanceLevel")
-                        .IsRequired();
-
-                    b.Property<int>("AvailablePlaces");
-
-                    b.Property<DateTime>("RideDate");
-
-                    b.Property<string>("RideTime")
-                        .IsRequired();
-
-                    b.Property<int>("TrainerId");
-
-                    b.HasKey("RideId");
-
-                    b.ToTable("Rides");
-                });
-
             modelBuilder.Entity("RidingClubMS.BLL.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -165,8 +144,6 @@ namespace RidingClubMS.DAL.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<bool>("IsEmployee");
-
                     b.Property<string>("LastName");
 
                     b.Property<bool>("LockoutEnabled");
@@ -205,20 +182,7 @@ namespace RidingClubMS.DAL.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("RidingClubMS.BLL.Entities.UserRide", b =>
-                {
-                    b.Property<int>("RideId");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("RideId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserRide");
-                });
-
-            modelBuilder.Entity("RidingClubMS.ViewModels.Horse", b =>
+            modelBuilder.Entity("RidingClubMS.ViewModels.Horses", b =>
                 {
                     b.Property<int>("HorseId")
                         .ValueGeneratedOnAdd();
@@ -255,6 +219,28 @@ namespace RidingClubMS.DAL.Migrations
                     b.HasKey("HorseId");
 
                     b.ToTable("Horses");
+                });
+
+            modelBuilder.Entity("RidingClubMS.ViewModels.Rides", b =>
+                {
+                    b.Property<int>("RideId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AdvanceLevel")
+                        .IsRequired();
+
+                    b.Property<int>("AvailablePlaces");
+
+                    b.Property<DateTime>("RideDate");
+
+                    b.Property<string>("RideTime")
+                        .IsRequired();
+
+                    b.Property<int>("TrainerId");
+
+                    b.HasKey("RideId");
+
+                    b.ToTable("Rides");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -298,19 +284,6 @@ namespace RidingClubMS.DAL.Migrations
                 {
                     b.HasOne("RidingClubMS.BLL.Entities.User")
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("RidingClubMS.BLL.Entities.UserRide", b =>
-                {
-                    b.HasOne("RidingClubMS.BLL.Entities.Ride", "Ride")
-                        .WithMany("Users")
-                        .HasForeignKey("RideId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RidingClubMS.BLL.Entities.User", "User")
-                        .WithMany("UserRides")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
