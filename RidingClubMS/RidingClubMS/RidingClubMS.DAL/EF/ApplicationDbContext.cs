@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using RidingClubMS.ViewModels;
 using RidingClubMS.BLL.Entities;
+
 
 namespace RidingClubMS.DAL.EF
 {
@@ -38,7 +38,6 @@ namespace RidingClubMS.DAL.EF
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<UserRide>().HasKey(ur => new { ur.RideId, ur.UserId });
-
 
             modelBuilder.Entity<UserRide>()
                .HasOne(bc => bc.Ride)

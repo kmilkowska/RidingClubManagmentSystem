@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using RidingClubMS.ViewModels;
+using RidingClubMS.BLL.Entities;
 using System.Collections.Generic;
 
 namespace RidingClubMS.BLL.Entities
