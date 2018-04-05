@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace RidingClubMS.ViewModels
+namespace RidingClubMS.BLL.Entities
 {
     public class Horse
     {
