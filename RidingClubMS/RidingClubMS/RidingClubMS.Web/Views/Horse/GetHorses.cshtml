@@ -1,0 +1,25 @@
+﻿@model List<RidingClubMS.BLL.Entities.Horse>
+@{
+    ViewData["Title"] = "GetHorses";
+}
+
+<h2>GetHorses</h2>
+<table class="table table-striped">
+
+    <tr>
+        <th>Imię</th>
+        <th>Rasa</th>
+        <th>Data urodzenia</th>
+        <th>Hodowca</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.HorseName</td>
+            <td>@item.HorseBreed</td>
+            <td>@item.DateOfBirth</td>
+            <td>@item.HorseBreeder</td>
+        </tr>
+    }
+
+</table>
