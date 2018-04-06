@@ -28,6 +28,8 @@ namespace RidingClubMS.BLL.Entities
         [Required]
         public string HorseDescription { get; set; }
         [Required]
+        public string HorseOwner { get; set; }
+        [Required]
         public string ImgUrl { get; set; }
        
     }

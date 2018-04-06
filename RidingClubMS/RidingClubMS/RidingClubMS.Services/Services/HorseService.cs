@@ -8,7 +8,7 @@ using System.Text;
 
 namespace RidingClubMS.Services.Services
 {
-    public class HorseService : IHorse
+    public class HorseService : IHorseService
     {
         ApplicationDbContext<User, Role, int> ctx;
 
@@ -19,17 +19,56 @@ namespace RidingClubMS.Services.Services
 
         public bool AddHorse(Horse horse)
         {
-            throw new NotImplementedException();
+            try
+            {
+                ctx.Horses.Add(horse);
+                ctx.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public bool DeleteHorse(int HorseId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var horse = GetHorse(HorseId);
+                ctx.Remove(horse);
+                ctx.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
-        public bool EditHorse(int HorseId)
+        public bool EditHorse(int HorseId, Horse horse)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var oldHorse = GetHorse(HorseId);
+                oldHorse.HorseId = horse.HorseId;
+                oldHorse.HorseBreed = horse.HorseBreed;
+                oldHorse.HorseBreeder = horse.HorseBreeder;
+                oldHorse.HorseCoulour = horse.HorseCoulour;
+                oldHorse.HorseDam = horse.HorseDam;
+                oldHorse.HorseDescription = horse.HorseDescription;
+                oldHorse.HorseName = horse.HorseName;
+                oldHorse.HorseOwner = horse.HorseOwner;
+                oldHorse.HorseSex = horse.HorseSex;
+                oldHorse.HorseSire = horse.HorseSire;
+                oldHorse.ImgUrl = horse.ImgUrl;
+                ctx.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public Horse GetHorse(int HorseId)
@@ -47,12 +86,26 @@ namespace RidingClubMS.Services.Services
 
         public List<Horse> GetHorses()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return ctx.Horses.ToList();
+            }
+            catch (Exception)
+            {
+                return new List<Horse>();
+            }
         }
 
         public List<Horse> GetHorsesByBreed(string HorseBreed)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return ctx.Horses.Where(x => x.HorseBreed == HorseBreed).ToList();
+            }
+            catch (Exception)
+            {
+                return new List<Horse>();
+            }
         }
     }
 }
