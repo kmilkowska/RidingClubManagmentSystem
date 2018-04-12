@@ -1,12 +1,22 @@
-﻿@model RidingClubMS.BLL.Entities.Horse 
+﻿@model RidingClubMS.BLL.Entities.Horse
 @{
     ViewData["Title"] = "GetHorse";
 }
 
 <h2>GetHorse</h2>
 <div>
-    <h2>@Model.HorseName</h2>
-    <h2>@Model.HorseBreed</h2>
-    <h2>@Model.DateOfBirth</h2>
+    <h2>Imię: @Model.HorseName</h2>
+    <h2>Płeć: @Model.HorseSex</h2>
+    <h2>Rasa: @Model.HorseBreed</h2>
+    <h2>Data urodzenia: @Model.DateOfBirth</h2>
+    <h2>Maść: @Model.HorseCoulour</h2>
+    <h2>Matka: @Model.HorseDam</h2>
+    <h2>Ojciec: @Model.HorseSire</h2>
+    <h2>Opis: @Model.HorseDescription</h2>
+    <h2>Hodowca: @Model.HorseBreeder</h2>
+    <h2>Właściciel: @Model.HorseOwner</h2>
+
 </div>
+@Html.ActionLink("Wróć", "GetHorses", "Horse", (object)null, new { @class = "btn btn-warning" })
+@Html.ActionLink("Usuń", "DeleteHorse", new { HorseId = @Model.HorseId }, new { @class = "btn btn-danger" })
 

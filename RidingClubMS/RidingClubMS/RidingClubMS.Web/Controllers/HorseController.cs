@@ -47,19 +47,36 @@ namespace RidingClubMS.Web.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        public ActionResult AddHorse()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult AddHorse(Horse horse)
         {
-            var model = IHorseService.AddHorse(horse);
+            if (horse != null)
+            {
+                var model = IHorseService.AddHorse(horse);
+            }
 
-            return View(model);
+            return RedirectToAction("GetHorses");
         }
 
+        [HttpGet]
+        public ActionResult DeleteHorse()
+        {
+            return View();
+        }
+
+        [HttpPost]
         public IActionResult DeleteHorse(int HorseId)
         {
             var model = IHorseService.DeleteHorse(HorseId);
 
-            return View(model);
+            return RedirectToAction("GetHorses");
         }
 
         public IActionResult EditHorse(int HorseId, Horse horse)

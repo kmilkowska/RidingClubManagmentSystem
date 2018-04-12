@@ -4,6 +4,7 @@
 }
 
 <h2>GetHorses</h2>
+@Html.ActionLink("Dodaj konia", "AddHorse", "Horse", (object)null, new { @class = "btn btn-primary" })
 <table class="table table-striped">
 
     <tr>
@@ -11,6 +12,7 @@
         <th>Rasa</th>
         <th>Data urodzenia</th>
         <th>Hodowca</th>
+        <th>Opcje</th>
     </tr>
     @foreach (var item in Model)
     {
@@ -19,6 +21,10 @@
             <td>@item.HorseBreed</td>
             <td>@item.DateOfBirth</td>
             <td>@item.HorseBreeder</td>
+            <td>
+                @Html.ActionLink("Usuń", "DeleteHorse", new { HorseId = item.HorseId }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Szczegóły", "GetHorse", new { HorseId = item.HorseId }, new { @class = "btn btn-primary" })
+            </td>
         </tr>
     }
 
