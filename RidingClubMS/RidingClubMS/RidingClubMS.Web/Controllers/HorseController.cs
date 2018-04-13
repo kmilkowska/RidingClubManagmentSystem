@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RidingClubMS.Services.Interfaces;
 using RidingClubMS.BLL.Entities;
+using Newtonsoft.Json;
+using RidingClubMS.ViewModels.HorseJsonModels;
 
 namespace RidingClubMS.Web.Controllers
 {
     public class HorseController : Controller
     {
-      
+
         private readonly IHorseService IHorseService;
 
         public HorseController(IHorseService _IHorseService)
@@ -43,10 +45,20 @@ namespace RidingClubMS.Web.Controllers
         public IActionResult GetHorsesByBreed(string HorseBreed)
         {
             var model = IHorseService.GetHorsesByBreed(HorseBreed);
+            List<HorseResultJson> res = new List<HorseResultJson>();
+            foreach(var itm in model)
+            {
+                res.Add(new HorseResultJson
+                {
+                     BirthDay = itm.DateOfBirth.ToString(),
+                     Breed = itm.HorseBreed.ToString(),
+                     Breeder = itm.HorseBreeder.ToString(),
+                     Name = itm.HorseName.ToString()
+                });
+            }
 
-            return View(model);
+            return new Json(new { result = res});
         }
-
 
         [HttpGet]
         public ActionResult AddHorse()
@@ -79,11 +91,20 @@ namespace RidingClubMS.Web.Controllers
             return RedirectToAction("GetHorses");
         }
 
-        public IActionResult EditHorse(int HorseId, Horse horse)
+        [HttpGet]
+        public IActionResult EditHorse(int HorseId)
         {
-            var model = IHorseService.EditHorse(HorseId, horse);
+            var model = IHorseService.GetHorse(HorseId);
             return View(model);
         }
 
+        [HttpPost]
+        public IActionResult EditHorse(int HorseId, Horse horse)
+        {
+            if(IHorseService.EditHorse(HorseId, horse))
+            return RedirectToAction("GetHorses");
+
+            return View(horse);
+        }
     }
 }

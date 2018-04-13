@@ -24,8 +24,72 @@
             <td>
                 @Html.ActionLink("Usuń", "DeleteHorse", new { HorseId = item.HorseId }, new { @class = "btn btn-danger" })
                 @Html.ActionLink("Szczegóły", "GetHorse", new { HorseId = item.HorseId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Edytuj", "EditHorse", new { HorseId = item.HorseId }, new { @class = "btn btn-success" })
             </td>
         </tr>
     }
-
 </table>
+
+<div>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="row no-gutters">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <h3>Wybierz Rasę</h3>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="dropDownList">
+                        <select id="listValue1">
+                            <option value="">---------</option>
+                            <option value="SP">SP</option>
+                            <option value="WLKP">WLKP</option>
+                            <option value="KWPN">KWPN</option>
+                            <option value="OO">OO</option>
+                            <option value="HOL">HOL</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <table class="col-lg-11 col-md-11 col-sm-12 col-xs-12" id="Table-1">
+        <thead>
+            <tr>
+                <th>Imię</th>
+                <th>Rasa</th>
+                <th>Data urodzenia</th>
+                <th>Hodowca</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</div>
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+
+
+    function loadTable1(result) {
+        $("#Table-1 tbody tr").remove();
+        for (var i = 0; i < result.length; i++) {
+            $("#Table-1 tbody:last-child").append(
+                '<tr><td>' + result[i].HorseName + '</td><td>' + result[i].HorseBreed + '</td><td>' + result[i].DateOfBirth + '</td><td>' + result[i].HorseBreeder + '</td></tr>');
+        }
+    }
+    $("#listValue1").on('change', function () {
+        var res = $("#listValue1").val();
+
+        $.ajax({
+            url: '/Horse/GetHorsesByBreed',
+            type: 'GET',
+            dataType: 'Json',
+            data: { HorseBreed : res },
+            success: function (result) {
+                loadTable1(result);
+            },
+            error: function () {
+                alert("Sorry, can't load data");
+            }
+        });
+    });
+</script>
