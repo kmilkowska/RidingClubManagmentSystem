@@ -27,9 +27,9 @@
         <div class="form-group">
             @Html.LabelFor(m => m.HorseSex, "Płeć", new { @class = "col-4" })
             @Html.DropDownListFor(m => m.HorseSex, new List<SelectListItem> {
-new SelectListItem { Value = "0" , Text = "Klacz" },
-new SelectListItem { Value = "1" , Text = "Ogier" },
-new SelectListItem { Value = "2" , Text = "Wałach" }
+new SelectListItem { Value = "Klacz" , Text = "Klacz" },
+new SelectListItem { Value = "Ogier" , Text = "Ogier" },
+new SelectListItem { Value = "Wałach" , Text = "Wałach" }
 },
                          new { @class = "myselect" })
         </div>
