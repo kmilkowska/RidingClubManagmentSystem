@@ -73,7 +73,7 @@
         $("#Table-1 tbody tr").remove();
         for (var i = 0; i < result.length; i++) {
             $("#Table-1 tbody:last-child").append(
-                '<tr><td>' + result[i].HorseName + '</td><td>' + result[i].HorseBreed + '</td><td>' + result[i].DateOfBirth + '</td><td>' + result[i].HorseBreeder + '</td></tr>');
+                '<tr><td>' + result[i].Name + '</td><td>' + result[i].Breed + '</td><td>' + result[i].BirthDay + '</td><td>' + result[i].Breeder + '</td></tr>');
         }
     }
     $("#listValue1").on('change', function () {

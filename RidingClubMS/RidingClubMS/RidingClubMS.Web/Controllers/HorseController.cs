@@ -57,8 +57,12 @@ namespace RidingClubMS.Web.Controllers
                 });
             }
 
-            return new Json(new { result = res});
-        }
+            JsonSerializerSettings jsSettings = new JsonSerializerSettings();
+            jsSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            var converted = JsonConvert.SerializeObject(res, null, jsSettings);
+            return Content(converted, "application/json");
+
+                }
 
         [HttpGet]
         public ActionResult AddHorse()
