@@ -1,0 +1,13 @@
+﻿@model RidingClubMS.BLL.Entities.Ride
+@{
+    ViewData["Title"] = "DeleteRide";
+}
+
+<h2>DeleteRide</h2>
+
+@using (Html.BeginForm())
+{
+    <h1>Czy chcesz usunąć jazdę ?</h1>
+    <input value="Tak" type="submit" class="btn btn-danger" />
+    @Html.ActionLink("Wróć", "GetRides", "Ride", (object)null, new { @class = "btn btn-warning" })
+}

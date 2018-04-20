@@ -65,7 +65,7 @@ namespace RidingClubMS.Web.Controllers
                 }
 
         [HttpGet]
-        public ActionResult AddHorse()
+        public IActionResult AddHorse()
         {
             return View();
         }
@@ -82,7 +82,7 @@ namespace RidingClubMS.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeleteHorse()
+        public IActionResult DeleteHorse()
         {
             return View();
         }

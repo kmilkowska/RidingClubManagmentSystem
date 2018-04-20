@@ -1,0 +1,20 @@
+﻿@model RidingClubMS.BLL.Entities.Ride
+@{
+    ViewData["Title"] = "GetRide";
+}
+
+<h2>GetRide</h2>
+
+<div>
+    @*<h2>Data: @Model.RideDate</h2>*@
+    <h2>Data: @String.Format("{0:dd/MM/yyyy}", @Model.RideDate)</h2>
+    <h2>Godzina: @Model.RideTime</h2>
+    <h2>Trener: @Model.Trainer</h2>
+    <h2>Stopień zaawansowania: @Model.AdvanceLevel</h2>
+    <h2>Ilość miejsc: @Model.AvailablePlaces</h2>
+
+
+</div>
+@Html.ActionLink("Wróć", "GetRides", "Ride", (object)null, new { @class = "btn btn-warning" })
+@Html.ActionLink("Usuń", "DeleteRide", new { RideId = @Model.RideId }, new { @class = "btn btn-danger" })
+

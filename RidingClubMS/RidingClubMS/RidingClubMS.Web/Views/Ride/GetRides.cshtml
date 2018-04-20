@@ -1,0 +1,33 @@
+﻿@model List<RidingClubMS.BLL.Entities.Ride>
+@{
+    ViewData["Title"] = "GetRides";
+}
+
+<h2>GetRides</h2>
+@Html.ActionLink("Dodaj jazdę", "AddRide", "Ride", (object)null, new { @class = "btn btn-primary" })
+<table class="table table-striped">
+
+    <tr>
+        <th>Data</th>
+        <th>Godzina</th>
+        <th>Trener</th>
+        <th>Stopień zaawansowania</th>
+        <th>Liczba miejsc</th>
+        <th>Opcje</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@String.Format("{0:dd/MM/yyyy}", item.RideDate)</td>
+            <td>@item.RideTime</td>
+            <td>@item.Trainer</td>
+            <td>@item.AdvanceLevel</td>
+            <td>@item.AvailablePlaces</td>
+            <td>
+                @Html.ActionLink("Usuń", "DeleteRide", new { RideId = item.RideId }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Szczegóły", "GetRide", new { RideId = item.RideId }, new { @class = "btn btn-primary" })
+                @Html.ActionLink("Edytuj", "EditRide", new { RideId = item.RideId }, new { @class = "btn btn-success" })
+            </td>
+        </tr>
+    }
+</table>

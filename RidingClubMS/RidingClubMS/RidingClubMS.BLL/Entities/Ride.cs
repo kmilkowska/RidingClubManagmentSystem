@@ -16,7 +16,7 @@ namespace RidingClubMS.BLL.Entities
         [Key]
         public int RideId { get; set; }
         [Required]
-        public int TrainerId { get; set; }
+        public string Trainer { get; set; }
         [Required]
         public DateTime RideDate { get; set; }
         [Required]

@@ -138,6 +138,7 @@ namespace RidingClubMS.Web
             services.AddScoped<IRepository<Role>, EntityFrameworkRepository<Role>>();
             services.AddScoped<IRepository<IdentityUserRole<int>>, EntityFrameworkRepository<IdentityUserRole<int>>>();
             services.AddScoped<IHorseService, HorseService>();
+            services.AddScoped<IRideService, RideService>();
             #endregion
             Services = services;
         }

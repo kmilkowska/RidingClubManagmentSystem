@@ -1,0 +1,52 @@
+﻿@model RidingClubMS.BLL.Entities.Ride
+@{
+    ViewData["Title"] = "AddRide";
+}
+
+<h2>AddRide</h2>
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.LabelFor(m => m.RideDate, "Data", new { @class = "col-4" })
+                @Html.TextBoxFor(m => m.RideDate)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.RideTime, "Godzina", new { @class = "col-4" })
+                @Html.TextBoxFor(m => m.RideTime)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.Trainer, "Trener", new { @class = "col-4" })
+                @Html.TextBoxFor(m => m.Trainer)
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.AdvanceLevel, "Stopień zaawansowania", new { @class = "col-4" })
+                @Html.DropDownListFor(m => m.AdvanceLevel, new List<SelectListItem>
+                    {
+                    new SelectListItem { Value = "Początkujący" , Text = "Początkujący" },
+                    new SelectListItem { Value = "Średnio-zaawansowany" , Text = "Średnio-zaawansowany" },
+                    new SelectListItem { Value = "Zaawansowany" , Text = "Zaawansowany" }
+                    }, new { @class = "myselect" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.AvailablePlaces, "Liczba miejsc", new { @class = "col-4" })
+                @Html.TextBoxFor(m => m.AvailablePlaces)
+            </div>
+           
+
+        </div>
+        <input type="submit" value="Dodaj" id="add" class="btn btn-success" />
+        @Html.ActionLink("Wróć", "GetRides", "Ride", (object)null, new { @class = "btn btn-primary" })
+    }
+</div>
+
+<link type="text/css" href="css/jquery-ui-1.7.1.custom.css" rel="stylesheet" />
+<script src="Scripts/jquery-1.4.4.min.js" type="text/javascript"></script>
+<script src="Scripts/jquery.ui.datepicker.js" type="text/javascript"></script>
+<SCRIPT type="text/javascript">
+        $(function () {
+            $("#txtDate").datepicker();
+        });
+</SCRIPT>
