@@ -5,16 +5,21 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using RidingClubMS.Services.Interfaces;
 using RidingClubMS.BLL.Entities;
+using RidingClubMS.ViewModels.RideViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace RidingClubMS.Web.Controllers
 {
     public class RideController : Controller
     {
-        private readonly IRideService IRideService;
+        private readonly IRideService _IRideService;
+        private readonly UserManager<ViewModels.RideViewModels.User> _userManager;
 
-        public RideController(IRideService _IRideService)
+        public RideController(IRideService IRideService, UserManager<ViewModels.RideViewModels.User> userManager)
         {
-            IRideService = _IRideService;
+            _IRideService = IRideService;
+            _userManager = userManager;
+
         }
 
         public IActionResult Index()
@@ -25,7 +30,7 @@ namespace RidingClubMS.Web.Controllers
         [HttpGet]
         public IActionResult GetRide(int RideId)
         {
-            var model = IRideService.GetRide(RideId);
+            var model = _IRideService.GetRide(RideId);
 
             return View(model);
         }
@@ -33,7 +38,7 @@ namespace RidingClubMS.Web.Controllers
         [HttpGet]
         public IActionResult GetRides()
         {
-            var model = IRideService.GetRides();
+            var model = _IRideService.GetRides();
 
             return View(model);
         }
@@ -49,7 +54,7 @@ namespace RidingClubMS.Web.Controllers
         {
             if (ride != null)
             {
-                var model = IRideService.AddRide(ride);
+                var model = _IRideService.AddRide(ride);
             }
 
             return RedirectToAction("GetRides");
@@ -64,7 +69,7 @@ namespace RidingClubMS.Web.Controllers
         [HttpPost]
         public IActionResult DeleteRide(int RideId)
         {
-            var model = IRideService.DeleteRide(RideId);
+            var model = _IRideService.DeleteRide(RideId);
 
             return RedirectToAction("GetRides");
         }
@@ -72,17 +77,41 @@ namespace RidingClubMS.Web.Controllers
         [HttpGet]
         public IActionResult EditRide(int RideId)
         {
-            var model = IRideService.GetRide(RideId);
+            var model = _IRideService.GetRide(RideId);
             return View(model);
         }
 
         [HttpPost]
         public IActionResult EditRide(int RideId, Ride ride)
         {
-            if (IRideService.EditRide(RideId, ride))
+            if (_IRideService.EditRide(RideId, ride))
                 return RedirectToAction("GetRides");
 
             return View(ride);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> RideReservation(int RideId, int UserId)
+        {
+            var model = new RideReservationViewModel()
+            {
+                User = await _userManager.FindByIdAsync(UserId.ToString()),
+                UserId = UserId,
+                Ride = _IRideService.GetRide(RideId),
+                RideId = RideId
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult RideReservation(Ride ride, ViewModels.RideViewModels.User user)
+        {
+            if (ride != null && user != null)
+            {
+                var model = _IRideService.RideReservation(ride, user);
+            }
+
+            return RedirectToAction("GetRides");
         }
     }
 }

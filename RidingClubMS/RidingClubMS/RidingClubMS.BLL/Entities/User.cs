@@ -12,7 +12,6 @@ namespace RidingClubMS.BLL.Entities
         //}
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public bool IsEmployee { get; set; }
 
         public virtual ICollection<UserRide> UserRides { get; set; }
     }

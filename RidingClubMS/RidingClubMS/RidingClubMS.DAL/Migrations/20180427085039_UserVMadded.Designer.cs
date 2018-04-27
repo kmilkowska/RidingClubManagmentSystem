@@ -12,9 +12,10 @@ using System;
 namespace RidingClubMS.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext<User, Role, int>))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180427085039_UserVMadded")]
+    partial class UserVMadded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,6 +208,8 @@ namespace RidingClubMS.DAL.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<bool>("IsEmployee");
 
                     b.Property<string>("LastName");
 

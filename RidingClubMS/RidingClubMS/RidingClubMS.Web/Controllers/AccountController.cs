@@ -21,10 +21,12 @@ namespace RidingClubMS.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<Role> _roleManager;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
+            RoleManager<Role> roleManager,
             IEmailSender emailSender,
             IUnitOfWork uow, 
             ILoggerFactory loggerFactory):base(uow, loggerFactory)
@@ -32,6 +34,7 @@ namespace RidingClubMS.Web.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [TempData]
@@ -212,12 +215,12 @@ namespace RidingClubMS.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model, string role, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -229,6 +232,12 @@ namespace RidingClubMS.Web.Controllers
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     Logger.LogInformation("User created a new account with password.");
+
+                    if (role == "Klubowicz" || role == "Trener")
+                    {
+                        await _userManager.AddToRoleAsync(user, role);
+                    }
+
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -434,6 +443,17 @@ namespace RidingClubMS.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+       // [AllowAnonymous]
+        public async Task<IActionResult>AddRole(string role)
+        {
+            if(!await _roleManager.RoleExistsAsync(role))
+            {
+                await _roleManager.CreateAsync(new Role(role));
+            }
+
+            return Json(_roleManager.Roles);
+        }
         #region Helpers
 
         private void AddErrors(IdentityResult result)

@@ -105,5 +105,26 @@ namespace RidingClubMS.Services.Services
                 return new List<UserRide>();
             }
         }
+
+        public bool RideReservation(Ride ride, User user)
+        {
+            try
+            {
+                var itm = new UserRide()
+                {
+                    Ride = ride,
+                    RideId = ride.RideId,
+                    User = user,
+                    UserId = user.Id
+                };
+                ctx.UserRides.Add(itm);
+                ctx.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
